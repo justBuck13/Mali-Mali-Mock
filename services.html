@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>justBuck | World</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Permanent+Marker&family=Rubik+Glitch&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- STREET CANVAS PALETTE --- */
+        :root {
+            --bg-color: #dcd6ce;        /* Dirty Concrete/Canvas Beige */
+            --paint-black: #0a0a0a;     /* Spray Paint Black */
+            --marker-red: #d90429;      /* The "Correction" Red */
+            --tape-white: #fdfdfd;      /* Masking Tape White */
+        }
+
+        /* --- GLOBAL TEXTURE & RESETS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--paint-black);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            /* Concrete Texture Overlay */
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+        }
+
+        h1, h2, h3 {
+            font-family: 'Permanent Marker', cursive;
+            text-transform: uppercase;
+            line-height: 0.9;
+        }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 100px 0; }
+        
+        /* The "Sticker" Effect for buttons/nav */
+        .sticker {
+            background: var(--paint-black);
+            color: var(--tape-white);
+            padding: 10px 20px;
+            display: inline-block;
+            transform: rotate(-2deg);
+            font-weight: 900;
+            text-decoration: none;
+            transition: 0.2s;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+        .sticker:hover {
+            transform: rotate(0deg) scale(1.05);
+            background: var(--marker-red);
+            color: var(--paint-black);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Rubik Glitch', system-ui;
+            font-size: 3rem;
+            transform: rotate(-3deg);
+            text-shadow: 3px 3px 0px var(--marker-red);
+        }
+
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { 
+            font-family: 'Permanent Marker', cursive;
+            font-size: 1.2rem;
+            color: var(--paint-black);
+            text-decoration: none;
+        }
+        .nav-links a:hover { text-decoration: underline wavy var(--marker-red); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Spray paint blob behind text */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* The "Drip" effect text */
+        .drip-text {
+            color: var(--marker-red);
+            font-family: 'Rubik Glitch', system-ui;
+            display: block;
+            font-size: 2rem;
+            transform: rotate(-5deg) translateY(-20px);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            background: var(--tape-white);
+            padding: 10px;
+            transform: rotate(1deg); /* Slight uneven look */
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
+        }
+
+        /* --- THE LAB (Services) --- */
+        .lab-section {
+            border-top: 5px solid var(--paint-black);
+            background: #d6d0c7; /* Slightly darker shade */
+        }
+
+        .graffiti-header {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--paint-black);
+            -webkit-text-stroke: 1px var(--bg-color); /* Cutout effect */
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* The "Marker Box" Design */
+        .marker-box {
+            border: 3px solid var(--paint-black);
+            /* This CSS trick makes the border look hand-drawn/wonky */
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 40px;
+            background: transparent;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .marker-box:hover {
+            background: var(--paint-black);
+            color: var(--bg-color);
+            transform: scale(1.02);
+        }
+        
+        .marker-box:hover h3 { color: var(--marker-red); }
+        .marker-box:hover p { color: #ccc; }
+
+        .marker-box h3 { font-size: 2rem; margin-bottom: 15px; }
+        .marker-box p { font-weight: 600; font-size: 0.9rem; line-height: 1.6; }
+
+        /* --- MUSIC & MIXES (Taped Posters) --- */
+        .music-section { text-align: center; }
+        
+        .poster-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .poster {
+            width: 250px;
+            height: 250px;
+            background: #111;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 10px 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Creating the "Scotch Tape" look with CSS */
+        .tape {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--paint-black);
+            color: var(--bg-color);
+            padding: 60px 0;
+            text-align: center;
+            font-family: 'Permanent Marker', cursive;
+            border-top: 10px solid var(--marker-red);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            nav { flex-direction: column; gap: 20px; }
+            .poster { width: 100%; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">justBuck</div>
+        <ul class="nav-links">
+            <li><a href="#">Music</a></li>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#lab">The Lab</a></li>
+            <li><a href="#" class="sticker">Book Now</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <span class="drip-text">Artist First. Always.</span>
+            <h1>Expression<br>Over<br>Algorithm</h1>
+            <p>Welcome to the world of justBuck. Stream the mixes, buy the exclusives, or hire the studio.</p>
+            
+            <div style="margin-top: 30px;">
+                <a href="#" class="sticker" style="transform: rotate(2deg);">Listen Now</a>
+                <a href="#lab" class="sticker" style="background: transparent; color: var(--paint-black); border: 3px solid var(--paint-black); margin-left: 15px;">Enter Studio</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding lab-section" id="lab">
+        <div class="container">
+            <h2 class="graffiti-header">THE WORKSHOP</h2>
+            <p style="text-align: center; margin-bottom: 50px; font-weight: 700;">Services by justBuck. For your sound.</p>
+
+            <div class="services-grid">
+                
+                <div class="marker-box">
+                    <h3>Ghost Production</h3>
+                    <p>You need a banger? I got the blueprints. Full tracks, sketches, or just the drop. You keep 100% ownership. No questions asked.</p>
+                </div>
+
+                <div class="marker-box" style="transform: rotate(1deg);">
+                    <h3>Mix & Master</h3>
+                    <p>Don't let a weak mix kill your vibe. I make it hit hard on the subs and clear on the phone. Send stems, get heat back.</p>
+                </div>
+
+                <div class="marker-box">
+                    <h3>Exclusive Beats</h3>
+                    <p>Check the shop for one-of-a-kind instrumentals. Once bought, they are gone from the site forever.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding music-section">
+        <div class="container">
+            <h2 style="font-size: 3rem;">Live & Direct</h2>
+            <p>Recent streams and mixes.</p>
+
+            <div class="poster-grid">
+                <div class="poster" style="transform: rotate(-3deg);">
+                    <div class="tape"></div>
+                    <h3>SoundCloud Mix 001</h3>
+                </div>
+                
+                <div class="poster" style="transform: rotate(2deg);">
+                    <div class="tape"></div>
+                    <h3>Live Stream Set</h3>
+                </div>
+
+                <div class="poster" style="transform: rotate(-1deg);">
+                    <div class="tape"></div>
+                    <h3>Spotify Singles</h3>
+                </div>
+            </div>
+
+            <br><br>
+            <a href="#" class="sticker" style="background: var(--marker-red); color: white;">Support / Donate</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h2>justBuck</h2>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.8rem; margin-top: 20px;">
+                &copy; 2024. All Art is Resistance.
+            </p>
+            <div style="margin-top: 20px;">
+                <a href="#" style="color: #fff; margin: 0 10px;">IG</a>
+                <a href="#" style="color: #fff; margin: 0 10px;">SC</a>
+                <a href="#" style="color: #fff; margin: 0 10px;">YT</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
